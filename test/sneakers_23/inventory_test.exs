@@ -21,7 +21,6 @@ defmodule Sneakers23.InventoryTest do
       }
     end
 
-    @tag :skip
     test "the update is received locally", %{test: test_name} do
       {_, %{p1: p1}} = Test.Factory.InventoryFactory.complete_products()
       {:ok, pid} = Server.start_link(name: test_name, loader_mod: DatabaseLoader)
@@ -32,7 +31,6 @@ defmodule Sneakers23.InventoryTest do
       assert product_release_status(p1, pid: pid) == {true, true}
     end
 
-    @tag :skip
     test "the update is sent to the client", %{test: test_name} do
       {_, %{p1: p1}} = Test.Factory.InventoryFactory.complete_products()
       {:ok, pid} = Server.start_link(name: test_name, loader_mod: DatabaseLoader)
