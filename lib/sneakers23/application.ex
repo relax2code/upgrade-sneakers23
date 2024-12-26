@@ -17,7 +17,9 @@ defmodule Sneakers23.Application do
       # Start a worker by calling: Sneakers23.Worker.start_link(arg)
       # {Sneakers23.Worker, arg},
       # Start to serve requests, typically the last entry
-      Sneakers23Web.Endpoint
+      Sneakers23Web.Endpoint,
+      Sneakers23.Inventory,
+      Sneakers23.Replication
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
