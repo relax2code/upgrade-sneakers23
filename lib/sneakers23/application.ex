@@ -18,6 +18,7 @@ defmodule Sneakers23.Application do
       # {Sneakers23.Worker, arg},
       # Start to serve requests, typically the last entry
       Sneakers23Web.Endpoint,
+      {Sneakers23Web.CartTracker, [pool_size: :erlang.system_info(:schedulers_online)]},
       Sneakers23.Inventory,
       Sneakers23.Replication
     ]

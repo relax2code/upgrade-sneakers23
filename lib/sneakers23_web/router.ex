@@ -18,7 +18,8 @@ defmodule Sneakers23Web.Router do
   scope "/", Sneakers23Web do
     pipe_through :browser
 
-    get "/", PageController, :home
+    # get "/", PageController, :home
+    get "/", ProductController, :index
   end
 
   # Other scopes may use custom stacks.
