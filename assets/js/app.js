@@ -26,15 +26,15 @@ import { productSocket } from "./product_socket"
 import dom from "./dom";
 import Cart from "./cart";
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-// let liveSocket = new LiveSocket("/live", Socket, {
-//   longPollFallbackMs: 2500,
-//   params: { _csrf_token: csrfToken }
-// })
+let liveSocket = new LiveSocket("/live", Socket, {
+  longPollFallbackMs: 2500,
+  params: { _csrf_token: csrfToken }
+})
 
 // Show progress bar on live navigation and form submits
-// topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
-// window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
-// window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
+topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
+window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
+window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 
 // connect if there are any LiveViews on the page
 // liveSocket.connect()
@@ -47,9 +47,15 @@ let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("
 
 productSocket.connect()
 
-const productIds = dom.getProductIds()
-console.debug(productIds)
-productIds.forEach((id) => setupProductChannel(productSocket, id))
+if (document.querySelectorAll("[data-phx-main]").length) {
+  console.log("connect livesocket")
+  liveSocket.connect()
+  window.liveSocket = liveSocket
+} else {
+  const productIds = dom.getProductIds()
+  productIds.forEach((id) => setupProductChannel(productSocket, id))
+
+}
 
 const cartChannel = Cart.setupCartChannel(productSocket, window.cartId, {
   onCartChange: (newCart) => {

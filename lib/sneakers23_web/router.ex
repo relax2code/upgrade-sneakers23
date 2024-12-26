@@ -35,6 +35,8 @@ defmodule Sneakers23Web.Router do
     get "/checkout", CheckoutController, :show
     post "/checkout", CheckoutController, :purchase
     get "/checkout/complete", CheckoutController, :success
+
+    live "/drops", ProductLive
   end
 
   scope "/admin", Sneakers23Web.Admin do
