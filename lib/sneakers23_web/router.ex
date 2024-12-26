@@ -15,6 +15,17 @@ defmodule Sneakers23Web.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :admin do
+    plug :auth
+    plug :put_layout, html: {Sneakers23Web.Layouts, :admin}
+  end
+
+  defp auth(conn, _opts) do
+    username = System.get_env("AUTH_USERNAME") || "admin"
+    password = System.get_env("AUTH_PASSWORD") || "password"
+    Plug.BasicAuth.basic_auth(conn, username: username, password: password)
+  end
+
   scope "/", Sneakers23Web do
     pipe_through :browser
 
@@ -24,7 +35,11 @@ defmodule Sneakers23Web.Router do
     get "/checkout", CheckoutController, :show
     post "/checkout", CheckoutController, :purchase
     get "/checkout/complete", CheckoutController, :success
+  end
 
+  scope "/admin", Sneakers23Web.Admin do
+    pipe_through [:browser, :admin]
+    get "/", DashboardController, :index
   end
 
   # Other scopes may use custom stacks.

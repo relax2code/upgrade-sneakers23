@@ -28,7 +28,9 @@ config :sneakers23, Sneakers23Web.Endpoint,
   secret_key_base: "QrZ9Rc2X/Dkpfy51kn0Cm4uSod7joKRiS4/joRft22XKTMHDB5QF0H+6hxm14wXO",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:sneakers23, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:sneakers23, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:sneakers23, ~w(--watch)]},
+    esbuild2: {Esbuild, :install_and_run, [:sneakers23_admin, ~w(--sourcemap=inline --watch)]},
+    tailwind2: {Tailwind, :install_and_run, [:sneakers23_admin, ~w(--watch)]}
   ]
 
 # ## SSL Support

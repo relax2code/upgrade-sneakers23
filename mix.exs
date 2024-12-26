@@ -74,10 +74,17 @@ defmodule Sneakers23.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind sneakers23", "esbuild sneakers23"],
+      "assets.build": [
+        "tailwind sneakers23",
+        "esbuild sneakers23",
+        "tailwind sneakers23_admin",
+        "esbuild sneakers23_admin",
+        ],
       "assets.deploy": [
         "tailwind sneakers23 --minify",
+        "tailwind sneakers23_admin --minify",
         "esbuild sneakers23 --minify",
+        "esbuild sneakers23_admin --minify",
         "phx.digest"
       ]
     ]
